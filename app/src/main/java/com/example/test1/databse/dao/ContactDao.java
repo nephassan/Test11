@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.test1.databse.entity.ContactEntity;
 
@@ -14,18 +15,26 @@ import java.util.List;
 @Dao
 public interface ContactDao {
 
-    @Query(" Select count(*)  from contactentity")
-    public int get_count();
+    @Query(" Select count(*)  from ContactEntity where `no`=:no")
+    public int get_count(String no);
 
 
-    @Query(" Select * from contactentity order by id")
+    @Query(" Select * from ContactEntity order by id")
     public List<ContactEntity> get_all_datas();
 
 
+    @Query(" Select * from ContactEntity where `no`=:no ")
+    public ContactEntity get_specific_data(String no);
 
-    @Query(" Delete from contactentity")
+    @Query(" Delete from ContactEntity ")
     public int del_all();
 
+    @Query(" Select count(*)  from ContactEntity")
+    public int get_count_specific();
+
+
+    @Update
+    public int update(ContactEntity tbl);
 
 
 //    @Query(" Delete from contactentity where fno=:vno")
@@ -33,6 +42,7 @@ public interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public Long insert_contact(ContactEntity tbl);
+
 
 
 //    @Insert(onConflict = OnConflictStrategy.IGNORE)

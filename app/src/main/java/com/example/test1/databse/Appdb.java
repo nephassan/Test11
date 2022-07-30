@@ -11,7 +11,7 @@ import com.example.test1.databse.dao.ContactDao;
 import com.example.test1.databse.entity.COCEntity;
 import com.example.test1.databse.entity.ContactEntity;
 
-@Database(version = 5,entities = {ContactEntity.class, COCEntity.class})
+@Database(version = 7,entities = {ContactEntity.class, COCEntity.class})
 
 public abstract  class Appdb extends RoomDatabase
 {

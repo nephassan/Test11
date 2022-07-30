@@ -3,6 +3,8 @@ package com.example.test1;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +25,11 @@ public class HomeActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private Calendar calendar;
     private Button btnSave;
-    private EditText edtName,edtDate,edtID,edtcount;
+    private EditText edtName,edtDate,edtID;
     private int year, month, day;
     private Appdb db;
 
-    private int i=0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,21 +43,25 @@ public class HomeActivity extends AppCompatActivity {
         init();
 
 
-//        edtID.setOnKeyListener(new View.OnKeyListener() {
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                // If the event is a key-down event on the "enter" button
-//                if ((event.getAction() == KeyEvent.ACTION_DOWN) ) {
-//                    // Perform action on key press
-//
-//                    Toast.makeText(HomeActivity.this, "HI "+ edtID.getText().toString(), Toast.LENGTH_SHORT).show();
-//
-//
-//
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        edtID.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+                //If the keyevent is a key-down event on the "enter" button
+                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
+                    Log.d("favas","reacher here");
+                 //   Toast.makeText(getApplicationContext(),"Bismillah",Toast.LENGTH_LONG).show();
+
+                    if(db.getContactDao().get_count_specific()>0)
+                    {
+                        showData();
+                    }
+
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +77,39 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                i=i+1;
-                db.getContactDao().insert_contact(new ContactEntity(0,""+edtID.getText().toString(),""+edtName.getText().toString().trim()));
+                if(!edtID.getText().toString().trim().equals("")   && !edtName.getText().toString().trim().equals("")  )
+                {
+                 long cnt=   db.getContactDao().insert_contact(new ContactEntity(0,edtID.getText().toString(),edtName.getText().toString().trim()));
+                 if(cnt==1)
+                 {
+                     Toast.makeText(getApplicationContext(),"Saved data",Toast.LENGTH_LONG).show();
+                 }
+                 else
+                 {
 
-                edtcount.setText(""+db.getContactDao().get_count());
+                   ContactEntity contactEntity=  db.getContactDao().get_specific_data(edtID.getText().toString());
+                   int update_cnt=  db.getContactDao().update(new ContactEntity(contactEntity.getId(),edtID.getText().toString(),edtName.getText().toString().trim()));
 
-                //Toast.makeText(getApplicationContext(),""+db.getContactDao().get_count(),Toast.LENGTH_LONG).show();
+                     if(update_cnt==1)
+                     {
+                         Toast.makeText(getApplicationContext(),"Saved data",Toast.LENGTH_LONG).show();
+                     }
+                     else
+                     {
+                         Toast.makeText(getApplicationContext(),"Failed to save data",Toast.LENGTH_LONG).show();
+                     }
+
+                 }
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Plz enter all fields",Toast.LENGTH_LONG).show();
+
+
+
+                }
+
 
             }
         });
@@ -92,9 +125,29 @@ public class HomeActivity extends AppCompatActivity {
         edtName=findViewById(R.id.edtIDNo);
         edtDate=findViewById(R.id.edtDate);
         edtID=findViewById(R.id.edtID);
-        edtcount=findViewById(R.id.edtReccount);
+
 
     }
+
+    private void showData()
+    {
+       String idno=  edtID.getText().toString();
+
+   ContactEntity entity=     db.getContactDao().get_specific_data(idno);
+
+   if(entity!=null)
+   {
+       edtName.setText(entity.getName());
+   }
+   else
+   {
+       Toast.makeText(getApplicationContext(),"empty ",Toast.LENGTH_LONG).show();
+   }
+
+
+
+    }
+
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
