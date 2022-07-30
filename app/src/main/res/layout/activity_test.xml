@@ -3,37 +3,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
-    <EditText
-        android:id="@+id/edtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btnSave"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:text="Save" >
-
-    </Button>
+        android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <Button
-            android:layout_width="wrap_content"
+
+
+        <TextView
+            android:id="@+id/txtID"
             android:layout_height="wrap_content"
-            android:text="Close"
-        />
+            android:layout_width="wrap_content"
+          app:layout_constraintEnd_toStartOf="@+id/edtIDNo"
+            android:layout_marginEnd="15dp"
 
-    </LinearLayout>
+            android:text="ID No"
+
+            app:layout_constraintWidth_percent=".20"
+            app:layout_constraintBottom_toBottomOf="@+id/edtIDNo"
+
+            app:layout_constraintTop_toTopOf="@+id/edtIDNo"
+            app:layout_constraintVertical_bias="0.485"
+            tools:layout_editor_absoluteX="77dp" />
+
+
+        <EditText
+            android:id="@+id/edtIDNo"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:layout_marginTop="10dp"
+            android:hint="id no"
+            android:layout_marginEnd="10dp"
+
+            android:layout_height="54dp"
+            app:layout_constraintWidth_percent=".60"
+            tools:layout_editor_absoluteX="131dp"
+            tools:layout_editor_absoluteY="36dp" />
+
+
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_height="51dp"
+            android:layout_marginLeft="12dp"
+            android:text="Delete"
+            app:layout_constraintStart_toEndOf="@+id/btnSave"
+            app:layout_constraintTop_toTopOf="@+id/button"
+            app:layout_constraintWidth_percent=".30">
+
+        </Button>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_height="51dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="568dp"
+            android:text="Close"
+            app:layout_constraintStart_toEndOf="@+id/btnDelete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".30" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_height="51dp"
+            android:text="Save"
+
+            app:layout_constraintTop_toTopOf="@+id/button"
+            app:layout_constraintWidth_percent=".30"
+            tools:layout_editor_absoluteX="8dp">
+
+        </Button>
+
+
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="247dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="@+id/edtIDNo"
+            app:layout_constraintTop_toBottomOf="@+id/edtIDNo" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

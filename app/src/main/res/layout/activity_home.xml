@@ -24,12 +24,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:inputType="date"
+
+
         android:singleLine="true"
         app:layout_constraintWidth_percent=".75"
         app:layout_constraintStart_toEndOf="@id/txtID"
         app:layout_constraintTop_toTopOf="parent"
-        android:nextFocusDown="@id/edtName"
+
         />
 
     <TextView
@@ -37,17 +38,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-
         android:layout_marginStart="50dp"
-
         app:layout_constraintTop_toBottomOf="@+id/edtID"
-
-
         android:text="Name"
         />
 
     <EditText
-        android:id="@+id/edtName"
+        android:id="@+id/edtIDNo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent=".75"
@@ -63,17 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-
         android:layout_marginStart="50dp"
-
         app:layout_constraintTop_toTopOf="@+id/edtDate"
         app:layout_constraintBottom_toBottomOf="@id/edtDate"
-
-
         android:text="Date"
         />
-
-
 
     <EditText
         android:id="@+id/edtDate"
@@ -81,13 +72,35 @@
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent=".75"
         app:layout_constraintStart_toEndOf="@id/txtDate"
-        app:layout_constraintTop_toBottomOf="@+id/edtName"
+        app:layout_constraintTop_toBottomOf="@+id/edtIDNo"
         android:maxLines="1"
         android:singleLine="true"
         android:focusable="false"
         />
 
+    <EditText
+        android:id="@+id/edtReccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent=".75"
+        app:layout_constraintStart_toEndOf="@+id/txtcount"
+        app:layout_constraintTop_toBottomOf="@+id/edtDate"
+        android:maxLines="1"
+        android:singleLine="true"
+        />
 
+    <TextView
+        android:id="@+id/txtcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"
+
+        app:layout_constraintTop_toTopOf="@+id/edtReccount"
+        app:layout_constraintBottom_toBottomOf="@+id/edtReccount"
+
+        android:text="Record Count"
+        />
 
 
     <Button
@@ -95,7 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtName"
+        app:layout_constraintTop_toBottomOf="@+id/edtIDNo"
 
 
         android:text="Save"/>

@@ -3,6 +3,7 @@ package com.example.test1;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,14 +17,13 @@ import com.example.test1.databse.Appdb;
 import com.example.test1.databse.entity.ContactEntity;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
     private DatePicker datePicker;
     private Calendar calendar;
     private Button btnSave;
-    private EditText edtName,edtDate,edtID;
+    private EditText edtName,edtDate,edtID,edtcount;
     private int year, month, day;
     private Appdb db;
 
@@ -40,6 +40,23 @@ public class HomeActivity extends AppCompatActivity {
 
         init();
 
+
+//        edtID.setOnKeyListener(new View.OnKeyListener() {
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                // If the event is a key-down event on the "enter" button
+//                if ((event.getAction() == KeyEvent.ACTION_DOWN) ) {
+//                    // Perform action on key press
+//
+//                    Toast.makeText(HomeActivity.this, "HI "+ edtID.getText().toString(), Toast.LENGTH_SHORT).show();
+//
+//
+//
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,11 +71,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 i=i+1;
                 db.getContactDao().insert_contact(new ContactEntity(0,""+edtID.getText().toString(),""+edtName.getText().toString().trim()));
 
-                Toast.makeText(getApplicationContext(),""+db.getContactDao().get_count(),Toast.LENGTH_LONG).show();
+                edtcount.setText(""+db.getContactDao().get_count());
+
+                //Toast.makeText(getApplicationContext(),""+db.getContactDao().get_count(),Toast.LENGTH_LONG).show();
 
             }
         });
@@ -71,9 +89,10 @@ public class HomeActivity extends AppCompatActivity {
     private void init()
     {
         btnSave=findViewById(R.id.btnSave);
-        edtName=findViewById(R.id.edtName);
+        edtName=findViewById(R.id.edtIDNo);
         edtDate=findViewById(R.id.edtDate);
         edtID=findViewById(R.id.edtID);
+        edtcount=findViewById(R.id.edtReccount);
 
     }
 

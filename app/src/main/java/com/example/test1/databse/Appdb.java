@@ -8,22 +8,19 @@ import androidx.room.RoomDatabase;
 
 import com.example.test1.Const;
 import com.example.test1.databse.dao.ContactDao;
+import com.example.test1.databse.entity.COCEntity;
 import com.example.test1.databse.entity.ContactEntity;
 
+@Database(version = 5,entities = {ContactEntity.class, COCEntity.class})
 
-@Database(version = 1,entities = {ContactEntity.class})
-public abstract  class Appdb extends RoomDatabase {
-
-
+public abstract  class Appdb extends RoomDatabase
+{
     private static Appdb db;
 
     public abstract ContactDao getContactDao();
 
-
-
     public static synchronized Appdb getDb_instance(Context context)
     {
-
         if(db==null)
         {
             db = Room.databaseBuilder(context.getApplicationContext(),
@@ -31,15 +28,9 @@ public abstract  class Appdb extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build();
-
-
-
         }
 
-
         return db;
-
     }
-
 
 }
