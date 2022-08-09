@@ -2,6 +2,7 @@ package com.example.test1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.test1.activity.ListActivity;
 import com.example.test1.databse.Appdb;
 import com.example.test1.databse.entity.ContactEntity;
 
@@ -24,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private DatePicker datePicker;
     private Calendar calendar;
-    private Button btnSave;
+    private Button btnSave,btnList;
     private EditText edtName,edtDate,edtID;
     private int year, month, day;
     private Appdb db;
@@ -35,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        db = Appdb.getDb_instance(getApplicationContext());
+
 
 
 
@@ -44,11 +46,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
         edtID.setOnKeyListener(new View.OnKeyListener() {
+
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+
                 //If the keyevent is a key-down event on the "enter" button
+
                 if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
                     Log.d("favas","reacher here");
+
                  //   Toast.makeText(getApplicationContext(),"Bismillah",Toast.LENGTH_LONG).show();
 
                     if(db.getContactDao().get_count_specific()>0)
@@ -115,36 +121,45 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+  btnList.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+          Intent in= new Intent( HomeActivity.this, ListActivity.class);
+          startActivity(in);
+      }
+  });
+
 
     }
 
 
     private void init()
     {
+        db = Appdb.getDb_instance(getApplicationContext());
         btnSave=findViewById(R.id.btnSave);
         edtName=findViewById(R.id.edtIDNo);
         edtDate=findViewById(R.id.edtDate);
         edtID=findViewById(R.id.edtID);
+        btnList= findViewById(R.id.btnList);
 
 
     }
 
     private void showData()
     {
-       String idno=  edtID.getText().toString();
+       String idno =  edtID.getText().toString();
 
-   ContactEntity entity=     db.getContactDao().get_specific_data(idno);
-
-   if(entity!=null)
-   {
-       edtName.setText(entity.getName());
-   }
-   else
-   {
-       Toast.makeText(getApplicationContext(),"empty ",Toast.LENGTH_LONG).show();
-   }
+       ContactEntity entity =  db.getContactDao().get_specific_data(idno);
 
 
+       if(entity!=null)
+       {
+           edtName.setText(entity.getName());
+       }
+       else
+       {
+           Toast.makeText(getApplicationContext(),"empty ",Toast.LENGTH_LONG).show();
+       }
 
     }
 

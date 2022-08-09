@@ -26,6 +26,11 @@ public interface ContactDao {
     @Query(" Select * from ContactEntity where `no`=:no ")
     public ContactEntity get_specific_data(String no);
 
+
+
+    @Query(" Select * from ContactEntity ")
+    public List<ContactEntity> get_full_records();
+
     @Query(" Delete from ContactEntity ")
     public int del_all();
 

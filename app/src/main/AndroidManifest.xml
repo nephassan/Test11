@@ -23,6 +23,17 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.ListActivity"
+
+            android:screenOrientation="portrait"
+
+
+
+          />
+
+
+
 
 
 
